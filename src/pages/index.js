@@ -10,8 +10,21 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [items, setItems] = useState([]);
 
-  const deleteItemFromList = (item) => {
-    setItems((prevItems) => prevItems.filter((i) => i !== item));
+  useEffect(() => {
+    loadItemsFromSupabase();
+  }, []);
+
+  const addItemToSupabase = async (word, definition) => {
+    const { error } = await supabase.from("words").insert([
+      {
+        word: word,
+        definition: definition,
+      },
+    ]);
+
+    if (error) {
+      console.log(error);
+    }
   };
 
   const deleteItemFromSupabase = async (word) => {
@@ -22,22 +35,11 @@ export default function Home() {
     }
   };
 
-  const handleDelete = (item) => {
-    deleteItemFromList(item);
-    deleteItemFromSupabase(item.word);
-  };
-
-  const addItemToList = (word, definition) => {
-    setItems((prevItems) => [{ word, definition }, ...prevItems]);
-  };
-
-  const addItemToSupabase = async (word, definition) => {
-    const { error } = await supabase.from("words").insert([
-      {
-        word: word,
-        definition: definition,
-      },
-    ]);
+  const markAsMemorizedInSupabase = async (word) => {
+    const { error } = await supabase
+      .from("words")
+      .update({ memorized: true })
+      .eq("word", word);
 
     if (error) {
       console.log(error);
@@ -54,14 +56,24 @@ export default function Home() {
       console.log(error);
     } else {
       setItems(
-        data.map((item) => ({ word: item.word, definition: item.definition }))
+        data.map((item) => ({ word: item.word, definition: item.definition, memorized: item.memorized }))
       );
     }
   };
 
-  useEffect(() => {
-    loadItemsFromSupabase();
-  }, []);
+  const addItemToList = (word, definition) => {
+    setItems((prevItems) => [{ word, definition }, ...prevItems]);
+  };
+
+  const deleteItemFromList = (item) => {
+    setItems((prevItems) => prevItems.filter((i) => i !== item));
+  };
+
+  const markAsMemorizedInList = (item) => {
+    setItems((prevItems) =>
+      prevItems.map((i) => (i === item ? { ...i, memorized: true } : i))
+    );
+  };
 
   const handleEnter = async (word) => {
     word = word.toLowerCase();
@@ -70,6 +82,16 @@ export default function Home() {
 
     addItemToList(word, definition);
     addItemToSupabase(word, definition);
+  };
+
+  const handleDelete = (item) => {
+    deleteItemFromList(item);
+    deleteItemFromSupabase(item.word);
+  };
+
+  const handleMemorize = (item) => {
+    markAsMemorizedInSupabase(item.word);
+    markAsMemorizedInList(item);
   };
 
   return (
@@ -81,7 +103,7 @@ export default function Home() {
       </div>
 
       <FloatingInput onEnter={handleEnter} />
-      <ItemList items={items} onDelete={handleDelete} />
+      <ItemList items={items} onDelete={handleDelete} onMemorize={handleMemorize} />
     </main>
   );
 }
