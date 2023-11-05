@@ -76,7 +76,7 @@ export default function Home() {
       className={`flex min-h-screen flex-col items-center p-4 ${inter.className}`}
     >
       <div className="">
-        <h1 className="header">Word Nook</h1>
+        <h1 className=" font-serif header">Word Nook</h1>
       </div>
 
       <FloatingInput onEnter={handleEnter} />
