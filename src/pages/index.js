@@ -45,12 +45,17 @@ export default function Home() {
   };
 
   const loadItemsFromSupabase = async () => {
-    const { data, error } = await supabase.from("words").select("*").order('created_at', { ascending: false });
+    const { data, error } = await supabase
+      .from("words")
+      .select("*")
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.log(error);
     } else {
-      setItems(data.map(item => ({ word: item.word, definition: item.definition })));
+      setItems(
+        data.map((item) => ({ word: item.word, definition: item.definition }))
+      );
     }
   };
 
@@ -70,6 +75,10 @@ export default function Home() {
     <main
       className={`flex min-h-screen flex-col items-center p-4 ${inter.className}`}
     >
+      <div className="">
+        <h1 className="header">Word Nook</h1>
+      </div>
+
       <FloatingInput onEnter={handleEnter} />
       <ItemList items={items} onDelete={handleDelete} />
     </main>

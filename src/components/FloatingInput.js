@@ -13,12 +13,11 @@ const FloatingInput = ({ onEnter }) => {
   return (
     <input
       type="text"
-      placeholder='here'
       value={inputValue}
       onChange={(e) => setInputValue(e.target.value)}
       onKeyPress={handleKeyPress}
       autoFocus
-      className="mt-12 w-64 p-2 bg-transparent focus:outline-none text-center"
+      className="w-64 p-3 m-3 mt-8 bg-gray-100 focus:outline-none shadow-lg rounded-md text-xl font-serif text-gray-800 text-center"
     />
   );
 };

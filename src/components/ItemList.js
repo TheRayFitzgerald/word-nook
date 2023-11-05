@@ -4,7 +4,7 @@ export default function ItemList({ items, onDelete }) {
       {items.map((item, index) => (
         <div
           key={index}
-          className="flex flex-col p-5 m-3 bg-gray-100 rounded shadow-lg"
+          className="flex flex-col p-5 m-3 bg-gray-100 rounded-md shadow-lg"
         >
           <h2 className="text-2xl font-serif text-gray-700">{item.word}</h2>
           <p className="mt-4 text-gray-600">{item.definition}</p>

@@ -19,3 +19,40 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+body {
+  background-color: #f5f5f5; /* Set the background color */
+  background-image: radial-gradient(circle at 1px 1px, #bdbdbd9f 1px, transparent 0); /* Create the dot */
+  background-size: 25px 25px; /* Size of the grid */
+}
+
+.header {
+  font-family: 'Courier New', monospace; /* Change to a vintage retro typewriter font */
+  font-size: 3em;
+  text-align: center;
+  color: #333;
+  margin-top: 20px;
+}
+
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .1em solid gray; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 1.7s steps(20, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: gray; }
+}
