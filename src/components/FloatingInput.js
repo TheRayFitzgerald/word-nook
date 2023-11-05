@@ -17,7 +17,8 @@ const FloatingInput = ({ onEnter }) => {
       onChange={(e) => setInputValue(e.target.value)}
       onKeyPress={handleKeyPress}
       autoFocus
-      className="w-64 p-3 m-3 mt-8 bg-gray-100 focus:outline-none shadow-lg rounded-md text-xl font-serif text-gray-800 text-center"
+      placeholder="Enter a word"
+      className="w-64 p-3 m-3 mt-4 bg-gray-100 focus:outline-none shadow-lg rounded-md text-xl font-serif text-gray-800 text-center"
     />
   );
 };
