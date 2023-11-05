@@ -64,6 +64,7 @@ export default function Home() {
   }, []);
 
   const handleEnter = async (word) => {
+    word = word.toLowerCase();
     const response = await fetch(`/api/define?word=${word}`);
     const definition = await response.json();
 
