@@ -56,7 +56,11 @@ export default function Home() {
       console.log(error);
     } else {
       setItems(
-        data.map((item) => ({ word: item.word, definition: item.definition, memorized: item.memorized }))
+        data.map((item) => ({
+          word: item.word,
+          definition: item.definition,
+          memorized: item.memorized,
+        }))
       );
     }
   };
@@ -98,12 +102,17 @@ export default function Home() {
     <main
       className={`flex min-h-screen flex-col items-center p-4 ${inter.className}`}
     >
+      <audio src="/assets/grace.mp3" autoPlay />
       <div className="">
         <h1 className=" font-serif header">Word Nook</h1>
       </div>
-
+      <a href="/pencil.png"></a>
       <FloatingInput onEnter={handleEnter} />
-      <ItemList items={items} onDelete={handleDelete} onMemorize={handleMemorize} />
+      <ItemList
+        items={items}
+        onDelete={handleDelete}
+        onMemorize={handleMemorize}
+      />
     </main>
   );
 }

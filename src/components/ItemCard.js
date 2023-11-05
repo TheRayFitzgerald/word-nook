@@ -11,10 +11,10 @@ export default function ItemCard({ item, onMemorize }) {
       </div>
 
       {/* Right side: memorize button, centered vertically */}
-      {item.memorized ? null : (
+      {!item.memorized && (
         <button
           onClick={() => onMemorize(item)}
-          className="ml-4 text-gray-800 hover:text-gray-600 active:text-gray-900"
+          className="ml-4 text-gray-700 hover:text-gray-500 active:text-gray-800"
         >
           <Icon icon="mdi:brain" className="text-4xl" />
         </button>
