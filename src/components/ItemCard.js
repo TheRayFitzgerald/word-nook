@@ -12,12 +12,19 @@ export default function ItemCard({ item, onMemorize }) {
 
       {/* Right side: memorize button, centered vertically */}
       {!item.memorized && (
-        <button
+        <div
           onClick={() => onMemorize(item)}
-          className="ml-4 text-gray-700 hover:text-gray-500 active:text-gray-800"
+          class="w-12 h-12 flex-shrink-0 ml-2 bg-gray-700 rounded-full cursor-pointer select-none
+active:translate-y-1  active:[box-shadow:0_0px_0_0_#6b7280,0_0px_0_0_#6b7280]
+active:border-b-[0px]
+transition-all duration-150 [box-shadow:0_4px_0_0_#6b7280,0_6px_0_0_#6b7280]
+border-[1px] border-gray-600
+"
         >
-          <Icon icon="mdi:brain" className="text-4xl" />
-        </button>
+          <span class="flex flex-col justify-center items-center h-full text-white font-bold text-3xl ">
+            <Icon icon="mdi:brain" />
+          </span>
+        </div>
       )}
     </div>
   );

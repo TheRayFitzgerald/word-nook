@@ -28,6 +28,10 @@ body {
   background-size: 25px 25px; /* Size of the grid */
   cursor: url("/pencil-solid.svg"), auto;
 }
+body.dark {
+  background-color: #1a202c; /* Set the dark mode background color */
+  color: #d80505; /* Set the dark mode text color */
+}
 
 .header {
   font-size: 3em;
@@ -35,6 +39,11 @@ body {
   color: #333;
   margin-top: 20px;
 }
+
+body.dark .header {
+  color: #fff; /* Set the dark mode text color for header */
+}
+
 
 .typewriter h1 {
   overflow: hidden; /* Ensures the content is not revealed until the animation */
