@@ -7,15 +7,14 @@ import { Inter } from "next/font/google";
 import { supabase } from "../utils/supabaseClient";
 import useSound from "use-sound";
 import { Icon } from "@iconify/react";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [items, setItems] = useState([]);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const [play, { stop }] = useSound("/assets/grace.mp3", {
-    volume: 0.5,
-  });
+  const [play, { stop }] = useSound("/assets/grace.mp3");
 
   useEffect(() => {
     loadItemsFromSupabase();
@@ -116,37 +115,42 @@ export default function Home() {
   };
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center p-4 ${inter.className}`}
-    >
-      <audio src="/assets/grace.mp3" autoPlay />
-      <div className="">
-        <h1 className="font-serif header">Word Nook</h1>
-      </div>
-      <div
-        onClick={audioHandler}
-        class="w-12 h-12 bg-gray-700 rounded-full cursor-pointer select-none
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main
+        className={`flex min-h-screen flex-col items-center p-4 ${inter.className}`}
+      >
+        <audio src="/assets/grace.mp3" autoPlay />
+        <div className="">
+          <h1 className="font-serif header">Word Nook</h1>
+        </div>
+        <div
+          onClick={audioHandler}
+          class="w-12 h-12 bg-gray-700 rounded-full cursor-pointer select-none
 active:translate-y-1  active:[box-shadow:0_0px_0_0_#6b7280,0_0px_0_0_#6b7280]
 active:border-b-[0px]
 transition-all duration-150 [box-shadow:0_4px_0_0_#6b7280,0_6px_0_0_#6b7280]
 border-[1px] border-gray-600
 "
-      >
-        <span class="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">
-          {audioPlaying ? (
-            <Icon icon="icomoon-free:volume-mute2" />
-          ) : (
-            <Icon icon="icomoon-free:volume-medium" />
-          )}
-        </span>
-      </div>
-      <FloatingInput onEnter={handleEnter} />
-      <ItemList
-        items={items}
-        onDelete={handleDelete}
-        onMemorize={handleMemorize}
-      />
-      {/*<Footer />*/}
-    </main>
+        >
+          <span class="flex flex-col justify-center items-center h-full text-white font-bold text-lg ">
+            {audioPlaying ? (
+              <Icon icon="icomoon-free:volume-mute2" />
+            ) : (
+              <Icon icon="icomoon-free:volume-medium" />
+            )}
+          </span>
+        </div>
+        <FloatingInput onEnter={handleEnter} />
+        <ItemList
+          items={items}
+          onDelete={handleDelete}
+          onMemorize={handleMemorize}
+        />
+        {/*<Footer />*/}
+      </main>
+    </>
   );
 }
