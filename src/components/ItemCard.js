@@ -3,10 +3,21 @@ import { Icon } from "@iconify/react";
 export default function ItemCard({ item, onMemorize }) {
   return (
     // Set the outer div to be a flex container with items centered vertically
-    <div className={`flex flex-row items-center p-5 m-3 bg-gray-100 rounded-md shadow-md relative ${item.isWordOfTheDay ? 'gradient-border' : ''}`}>
+    <div
+      className={`flex flex-row items-center p-5 m-3 bg-gray-100 rounded-md shadow-md relative ${
+        item.isWordOfTheDay ? "gradient-border" : ""
+      }`}
+    >
       {/* Left side: word and definition in a column */}
       <div className="flex-grow">
-        <h2 className="text-2xl font-serif text-gray-700">{item.word}</h2>
+        <h2 className="text-2xl font-serif text-gray-700">
+          {item.isWordOfTheDay ? (
+            <span className="font-bold">📌 Word of the Day: </span>
+          ) : (
+            ""
+          )}
+          {item.word}
+        </h2>
         <p className="mt-4 text-gray-600">{item.definition}</p>
       </div>
 
