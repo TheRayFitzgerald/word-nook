@@ -1,5 +1,4 @@
-import ItemCard from './ItemCard';
-
+import ItemCard from "./ItemCard";
 
 export default function ItemList({ items, onMemorize }) {
   const notMemorizedItems = items.filter((item) => !item.memorized);
@@ -12,7 +11,9 @@ export default function ItemList({ items, onMemorize }) {
       ))}
       {memorizedItems.length > 0 && (
         <details>
-          <summary className="text-2xl font-serif text-gray-700">Memorized Words</summary>
+          <summary className="text-2xl font-serif text-gray-700">
+            Archive
+          </summary>
           {memorizedItems.map((item, index) => (
             <ItemCard key={index} item={item} onMemorize={onMemorize} />
           ))}
