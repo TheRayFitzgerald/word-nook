@@ -16,25 +16,41 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [items, setItems] = useState([]);
-  const [wordOfTheDay, setWordOfTheDay] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [play, { stop }] = useSound("/assets/grace.mp3");
 
   useEffect(() => {
+    // Call the load function within useEffect and await its completion
     loadItemsFromSupabase();
-    const today = new Date().getDate();
-    console.log(today);
-    const word = words[today - 1];
-
-    if (word) {
-      const define = async () => {
-        const definition = await defineWord(word);
-        setWordOfTheDay({ word, definition, isWordOfTheDay: true });
-        setItems((prevItems) => [{ word, definition, isWordOfTheDay: true }, ...prevItems]);
-      };
-      define();
-    }
   }, []);
+
+  useEffect(() => {
+    // This effect only runs when 'isLoading' changes.
+    // When 'isLoading' is false, it means items are loaded.
+    if (!isLoading) {
+      const today = new Date().getDate();
+      const word = words[today - 1];
+
+      if (word) {
+        const define = async () => {
+          const definition = await defineWord(word);
+          const wordExistsInItems = items.some((item) => item.word === word);
+          console.log(wordExistsInItems);
+          if (!wordExistsInItems) {
+            setItems((prevItems) => [
+              { word, definition, isWordOfTheDay: true },
+              ...prevItems,
+            ]);
+          }
+        };
+
+        define();
+      }
+    }
+  }, [isLoading]); // This effect depends on isLoading
+
+  ///////
 
   const audioHandler = () => {
     if (!audioPlaying) {
@@ -94,11 +110,15 @@ export default function Home() {
           memorized: item.memorized,
         }))
       );
+      setIsLoading(false);
     }
   };
 
   const addItemToList = (word, definition) => {
-    setItems((prevItems) => [{ word, definition, isWordOfTheDay: false }, ...prevItems]);
+    setItems((prevItems) => [
+      { word, definition, isWordOfTheDay: false },
+      ...prevItems,
+    ]);
   };
 
   const deleteItemFromList = (item) => {
@@ -121,6 +141,14 @@ export default function Home() {
 
     const definition = await response.json();
     return definition;
+  };
+
+  const handleAdd = (item) => {
+    setItems((prevItems) => [
+      { word: item.word, definition: item.definition, isWordOfTheDay: false },
+      ...prevItems.filter((i) => !i.isWordOfTheDay),
+    ]);
+    addItemToSupabase(item.word, item.definition);
   };
 
   const handleEnter = async (word) => {
@@ -176,13 +204,13 @@ export default function Home() {
               <Icon icon="icomoon-free:volume-medium" />
             )}
           </span>
-          
         </div>
         <FloatingInput onEnter={handleEnter} />
         <ItemList
           items={items}
           onDelete={handleDelete}
           onMemorize={handleMemorize}
+          onAdd={handleAdd}
         />
         {/*<Footer />*/}
       </main>
