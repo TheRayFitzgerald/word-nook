@@ -10,7 +10,6 @@ import { Icon } from "@iconify/react";
 import Head from "next/head";
 import { Toaster, toast } from "react-hot-toast";
 import words from "../utils/words_of_the_day.json";
-import ItemCard from "@/components/ItemCard";
 
 const inter = Inter({ subsets: ["latin"] });
 
