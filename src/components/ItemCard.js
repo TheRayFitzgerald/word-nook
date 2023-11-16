@@ -25,7 +25,7 @@ export default function ItemCard({ item, onMemorize, onAdd }) {
       {item.isWordOfTheDay && (
         <div
           onClick={() => onAdd(item)}
-          class="w-12 h-12 flex-shrink-0 ml-2 bg-gray-700 rounded-full cursor-pointer select-none
+          class="w-12 h-12 flex-shrink-0 ml-2 bg-gray-700 rounded-lg cursor-pointer select-none
     active:translate-y-1  active:[box-shadow:0_0px_0_0_#6b7280,0_0px_0_0_#6b7280]
     active:border-b-[0px]
     transition-all duration-150 [box-shadow:0_4px_0_0_#6b7280,0_6px_0_0_#6b7280]
@@ -40,7 +40,7 @@ export default function ItemCard({ item, onMemorize, onAdd }) {
       {!item.memorized && !item.isWordOfTheDay && (
         <div
           onClick={() => onMemorize(item)}
-          class="w-12 h-12 flex-shrink-0 ml-2 bg-gray-700 rounded-full cursor-pointer select-none
+          class="w-12 h-12 flex-shrink-0 ml-2 bg-gray-700 rounded-lg cursor-pointer select-none
 active:translate-y-1  active:[box-shadow:0_0px_0_0_#6b7280,0_0px_0_0_#6b7280]
 active:border-b-[0px]
 transition-all duration-150 [box-shadow:0_4px_0_0_#6b7280,0_6px_0_0_#6b7280]
