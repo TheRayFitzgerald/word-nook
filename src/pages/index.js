@@ -173,6 +173,7 @@ export default function Home() {
   return (
     <>
       <Head>
+        <title>Word Nook</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Toaster
